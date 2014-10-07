@@ -25,14 +25,14 @@
 */
 
 /* jshint unused:false */
-/* global describe, it, before, after */
+/* global describe, it, before, after, APP */
 
 
 var appBox = require( '../lib/appBox.js' ) ;
 var expect = require( 'expect.js' ) ;
 
 // Change directory if necessary: sample files should be loaded accordingly
-//if ( process.cwd() !== __dirname ) { process.chdir( __dirname ) ; }
+if ( process.cwd() !== __dirname ) { process.chdir( __dirname ) ; }
 
 
 
@@ -44,7 +44,7 @@ var expect = require( 'expect.js' ) ;
 
 describe( "Loading all module from the map file" , function() {
 	
-	it( "without lazy-loading" , function() {
+	it( "with full-loading" , function() {
 		
 		delete global.APP ;
 		appBox.loadMap( 'APP' , './map1.json' , { verbose: true , lazy: false } ) ;
@@ -58,6 +58,7 @@ describe( "Loading all module from the map file" , function() {
 		expect( APP.core.hello.world() ).to.be( 'World!' ) ;
 		expect( APP.core.hello.helloWorld() ).to.be( 'Hello world!' ) ;
 		expect( APP.core.bonjour() ).to.be( 'Bonjour !' ) ;
+		expect( APP.circular.one() ).to.be( 'onetwo' ) ;
 	} ) ;
 	
 	it( "with lazy-loading" , function() {
@@ -74,10 +75,13 @@ describe( "Loading all module from the map file" , function() {
 		expect( APP.core.hello.world() ).to.be( 'World!' ) ;
 		expect( APP.core.hello.helloWorld() ).to.be( 'Hello world!' ) ;
 		expect( APP.core.bonjour() ).to.be( 'Bonjour !' ) ;
+		expect( APP.core.bonjour() ).to.be( 'Bonjour !' ) ;
 		expect( APP.circular.one() ).to.be( 'onetwo' ) ;
+		expect( APP.circular.one() ).to.be( 'onetwo' ) ;
+		expect( APP.circular.two() ).to.be( 'twoone' ) ;
 		
 		// Ensure the module is now loaded
-		var descriptor = Object.getOwnPropertyDescriptor( APP.core , 'hello' ) ;
+		descriptor = Object.getOwnPropertyDescriptor( APP.core , 'hello' ) ;
 		expect( descriptor.value ).to.be.an( Object ) ;
 		expect( descriptor.get ).to.be( undefined ) ;
 	} ) ;

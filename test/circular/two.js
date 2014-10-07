@@ -1,10 +1,12 @@
 
 
-var one = APP.one ;
+var one = APP.circular.one ;
 
 module.exports = function( recursive )
 {
-	if ( ! recursive ) { return 'two' + one() ; }
+	//console.log( '[two]' , APP.circular ) ;
+	//if ( ! recursive ) { return 'two' + one( true ) ; }
+	if ( ! recursive ) { return 'two' + APP.circular.one( true ) ; }
 	return 'two' ;
-}
+} ;
 
