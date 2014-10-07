@@ -1,0 +1,10 @@
+{
+	"core": {
+		"hello": "core/hello.js" ,
+		"bonjour": "core/bonjour.js"
+	} ,
+	"circular": {
+		"one": "circular/one.js" ,
+		"two": "circular/two.js"
+	}
+}
