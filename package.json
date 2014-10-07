@@ -1,6 +1,6 @@
 {
   "name": "appbox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "It lets you store all your modules into one global. It supports lazy-loading or full-loading.",
   "main": "lib/appbox.js",
   "directories": {
